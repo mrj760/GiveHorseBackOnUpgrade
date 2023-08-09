@@ -1,0 +1,4 @@
+bin/**
+dev/horse/.vs/**
+dev/horse/obj/**
+dev/horse/packages/**

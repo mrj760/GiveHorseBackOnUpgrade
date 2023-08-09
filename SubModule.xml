@@ -1,0 +1,23 @@
+<Module>
+    <Name value="Give Horse Back On Upgrade" />
+    <Id value="GiveHorseBackOnUpgrade" />
+    <Version value="v1.0.0" />
+    <SingleplayerModule value="true" />
+    <MultiplayerModule value="false" />
+    <DependedModules>
+        <DependedModule Id="Bannerlord.Harmony" Optional="false"/>
+    </DependedModules>
+    <SubModules>
+        <SubModule>
+            <Name value="horse"/>
+            <DLLName value="horse.dll"/>
+            <SubModuleClassType value="horse.Fix"/>
+            <Tags>
+                <Tag key="DedicatedServerType" value="none" />
+                <Tag key="IsNoRenderModeElement" value="false" />
+            </Tags>
+        </SubModule>
+    </SubModules>
+    <Xmls>
+    </Xmls>
+</Module>

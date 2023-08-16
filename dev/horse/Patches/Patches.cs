@@ -2,6 +2,7 @@
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
+using TaleWorlds.Localization;
 
 namespace horse.Patches
 {
@@ -13,12 +14,11 @@ namespace horse.Patches
         public static void AddHorseBackToInventoryPatch(CharacterObject upgradeFromTroop,
             CharacterObject upgradeToTroop, int number)
         {
-            if (!upgradeFromTroop.HasMount() || !upgradeToTroop.HasMount()
-                || !upgradeToTroop.UpgradeRequiresItemFromCategory.IsAnimal)
+            if (!upgradeFromTroop.HasMount() || !upgradeToTroop.HasMount())
                 return;
 
-            var horse = upgradeFromTroop.Equipment.Horse.Item;
-            if (horse == null || horse.Equals(upgradeToTroop.Equipment.Horse.Item))
+            var horse = upgradeFromTroop.Equipment?.Horse.Item;
+            if (horse == null || horse.Equals(upgradeToTroop.Equipment?.Horse.Item))
                 return;
 
             // add the From's horse back to the player's inventory
@@ -27,7 +27,12 @@ namespace horse.Patches
             var item = new ItemRosterElement(horse, number);
             inv.Add(item);
             var msg = "Horse" + (number > 1 ? "s" : "") + " Retrived: ";
-            msg += (number > 1 ? number + " " : "") + item.EquipmentElement.GetModifiedItemName();
+            var name = item.EquipmentElement.GetModifiedItemName();
+            if (TextObject.IsNullOrEmpty(name))
+            {
+                name = new TextObject("...");
+            }
+            msg += (number > 1 ? number + " " : "") + name;
             MBInformationManager.AddQuickInformation(new TaleWorlds.Localization.TextObject(msg));
         }
     }

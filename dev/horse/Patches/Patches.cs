@@ -18,7 +18,7 @@ namespace horse.Patches
                 return;
 
             var horse = upgradeFromTroop.Equipment.Horse.Item;
-            if (horse.Equals(upgradeToTroop.Equipment.Horse.Item))
+            if (horse == null || horse.Equals(upgradeToTroop.Equipment.Horse.Item))
                 return;
 
             // add the From's horse back to the player's inventory

@@ -11,6 +11,5 @@ namespace horse
             var harmony = new Harmony("horse");
             harmony.PatchAll();
         }
-
     }
 }

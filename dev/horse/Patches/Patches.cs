@@ -14,12 +14,14 @@ namespace horse.Patches
         public static void AddHorseBackToInventoryPatch(CharacterObject upgradeFromTroop,
             CharacterObject upgradeToTroop, int number)
         {
-            if (!upgradeFromTroop.HasMount() || !upgradeToTroop.HasMount())
-                return;
+            if (!upgradeFromTroop.HasMount() || !upgradeToTroop.HasMount()) return;
 
             var horse = upgradeFromTroop.Equipment?.Horse.Item;
-            if (horse == null || horse.Equals(upgradeToTroop.Equipment?.Horse.Item))
-                return;
+            if (horse == null) return;
+
+            var upgradeReq = upgradeToTroop.UpgradeRequiresItemFromCategory;
+            if (upgradeReq == null) return;
+            if (upgradeReq.StringId != "war_horse") return;
 
             // add the From's horse back to the player's inventory
             var party = MobileParty.MainParty;
@@ -32,10 +34,9 @@ namespace horse.Patches
             {
                 name = new TextObject("...");
             }
+
             msg += (number > 1 ? number + " " : "") + name;
             MBInformationManager.AddQuickInformation(new TaleWorlds.Localization.TextObject(msg));
         }
     }
 }
-
-

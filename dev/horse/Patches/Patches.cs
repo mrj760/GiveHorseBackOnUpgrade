@@ -28,7 +28,7 @@ namespace horse.Patches
             var inv = party.ItemRoster;
             var item = new ItemRosterElement(horse, number);
             inv.Add(item);
-            var msg = "Horse" + (number > 1 ? "s" : "") + " Retrived: ";
+            var msg = "Horse" + (number > 1 ? "s" : "") + " Retrieved: ";
             var name = item.EquipmentElement.GetModifiedItemName();
             if (TextObject.IsNullOrEmpty(name))
             {

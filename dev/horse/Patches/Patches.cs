@@ -20,23 +20,17 @@ namespace horse.Patches
             if (horse == null) return;
 
             var upgradeReq = upgradeToTroop.UpgradeRequiresItemFromCategory;
-            if (upgradeReq == null) return;
-            if (upgradeReq.StringId != "war_horse") return;
+            if (upgradeReq == null || upgradeReq.StringId != "war_horse") return;
 
             // add the From's horse back to the player's inventory
-            var party = MobileParty.MainParty;
-            var inv = party.ItemRoster;
             var item = new ItemRosterElement(horse, number);
-            inv.Add(item);
+            MobileParty.MainParty.ItemRoster.Add(item);
             var msg = "Horse" + (number > 1 ? "s" : "") + " Retrieved: ";
             var name = item.EquipmentElement.GetModifiedItemName();
-            if (TextObject.IsNullOrEmpty(name))
-            {
-                name = new TextObject("...");
-            }
+            name = TextObject.IsNullOrEmpty(name) ? new TextObject("...") : name;
 
             msg += (number > 1 ? number + " " : "") + name;
-            MBInformationManager.AddQuickInformation(new TaleWorlds.Localization.TextObject(msg));
+            MBInformationManager.AddQuickInformation(new TextObject(msg));
         }
     }
 }
